@@ -13,6 +13,20 @@ The workflow extracts the following components from the Illumina read names foun
 An representative explanation of an Illumina read name is provided here (source: https://www.gdc-docs.ethz.ch/MDA/site/getdata/):
 ![Data format: fastq](https://www.gdc-docs.ethz.ch/MDA/images/fastq.png)
 
+Also see:
+- https://kscbioinformatics.wordpress.com/2017/02/03/raw-illumina-sequence-data-files-for-dummies-part-1/
+- https://en.wikipedia.org/wiki/FASTQ_format
+
+# Command line processing pipeline
+1. samtools view - Converts BAM to SAM and outputs to stdout
+2. cut -f1 - Extracts the first field from each line
+3. awk -F: - Splits lines by ':' and prints first four columns separated by tabs
+4. sort | uniq - Sorts the lines and removes duplicates
+
+```bash
+samtools view {input.bam_file} | cut -f1 | awk -F: '{{print $1"\\t"$2"\\t"$3"\\t"$4}}' | sort | uniq > {output.processed_file}
+```
+
 ## Requirements
 - Snakemake
 - samtools
