@@ -1,0 +1,15 @@
+# vs code settings
+.vscode/
+
+# mac specific .DS_Store file
+.DS_Store
+
+# local testing files
+TESTING.md
+TESTING.sh
+
+# local config files
+config.yml
+config.yaml
+config.cfg
+config.json
