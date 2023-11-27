@@ -3,6 +3,16 @@
 ## Overview
 `extract_bam_read_info.smk` is a Snakemake workflow designed to process BAM files and extract specific read information. The script uses tools such as `samtools`, `cut`, `awk`, `sort`, and `uniq` to parse BAM files, extract and transform read information, and then concatenate the results into a single output file.
 
+## Read Name Format
+The workflow extracts the following components from the Illumina read names found in the BAM files:
+- **Instrument**: The unique name of the sequencing instrument.
+- **Run ID**: The number identifying the run.
+- **Flowcell ID**: The unique identifier for the flowcell.
+- **Lane**: The lane number on the flowcell.
+
+An representative explanation of an Illumina read name is provided here (source: https://www.gdc-docs.ethz.ch/MDA/site/getdata/):
+![Data format: fastq](https://www.gdc-docs.ethz.ch/MDA/images/fastq.png)
+
 ## Requirements
 - Snakemake
 - samtools
