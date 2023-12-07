@@ -1,6 +1,7 @@
 # Importing necessary Python modules
 import glob  # Used for file path pattern matching
 import os    # Used for path and filename manipulations
+import functools    # Used for partial function application
 
 # ----------------------------------------------------------------------------------- #
 # Load configuration file containing user-defined settings
@@ -94,8 +95,9 @@ rule concatenate_outputs:
         """
         # Concatenation pipeline:
         # 1. Create a header with column names: instrument, run, flowcell, lane
-        # 2. Concatenate all processed files into a single file with the header
-        echo -e "instrument\\trun\\tflowcell\\tlane" > {output}
-        cat {input} >> {output}
+        # 2. Concatenate all processed files into a single file with the header.
+        # Use grep to add filenames and sed to replace '.txt:' with a tab and remove the path
+        echo -e "sample\\tinstrument\\trun\\tflowcell\\tlane" > {output}
+        grep --with-filename '.' {input} | sed 's/\\.txt:/\\t/' | sed 's/^.*\///' >> {output}
         """
 # ----------------------------------------------------------------------------------- #
